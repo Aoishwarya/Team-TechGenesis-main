@@ -95,6 +95,8 @@ if ($stmt = $conn->prepare($sql)) {
         <p>Name: <?php echo $firstname . ' ' . $lastname; ?></p>
         <p>Email: <?php echo $email; ?></p>
         <!-- Add more profile details as needed -->
+
+        <a href="/user/update_profile.php" class="btn btn-primary">Update Profile</a>
     </div>
 
     <!-- Include Bootstrap JS (optional) -->

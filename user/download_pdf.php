@@ -1,34 +1,23 @@
 <?php
-// Include necessary files and start session
 session_start();
+error_reporting(0);
 include('config.php');
+if (isset($_GET['bookId'])) {
+    $bookId = $_GET['bookId'];
 
-// Validate user session
-if (strlen($_SESSION['loggedin']) > 0) {
-    // Check if book_id is sent via POST
-    if (isset($_POST['book_id'])) {
-        $bookId = $_POST['book_id'];
+    // Retrieve the file path from the database based on the bookId
+    $sql = "SELECT pdf_path FROM tblbooks WHERE id = $bookId";
+    $query = $conn->query($sql);
+    if ($query->num_rows > 0) {
+        $result = $query->fetch_assoc();
+        $pdfPath = $result['pdf_path'];
 
-        // Perform necessary database query to retrieve PDF file path based on $bookId
-        $sql = "SELECT pdfFilePath FROM tblbooks WHERE id = '$bookId'";
-        $query = $conn->query($sql);
-
-        if ($query->num_rows > 0) {
-            $row = $query->fetch_assoc();
-            $pdfFilePath = $row['pdfFilePath'];
-
-            // Use appropriate headers to initiate PDF download
-            header("Content-Type: application/pdf");
-            header("Content-Disposition: attachment; filename='book.pdf'");
-            readfile($pdfFilePath);
-
-            // Optionally, update database or log download activity
-
-            exit;
-        }
+        // Send the PDF file for download
+        header('Content-Type: application/pdf');
+        header('Content-Disposition: attachment; filename="' . basename($pdfPath) . '"');
+        header('Content-Length: ' . filesize($pdfPath));
+        readfile($pdfPath);
+        exit;
     }
 }
-
-// If reached here, PDF download failed
-echo json_encode(['success' => false]);
 ?>
