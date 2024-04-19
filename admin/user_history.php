@@ -96,7 +96,7 @@ if (strlen($_SESSION['loggedin']) == 0) {
 
                                             $sql = "SELECT users.id as uid, users.user_id, users.firstname, users.lastname, users.email, users.phone, tblbooks.BookName, tblissuedbookdetails.IssuesDate, tblissuedbookdetails.ReturnDate, tblissuedbookdetails.fine
                                                     FROM users
-                                                    JOIN tblissuedbookdetails ON users.user_id = tblissuedbookdetails.StudentId
+                                                    JOIN tblissuedbookdetails ON users.user_id = tblissuedbookdetails.UserId
                                                     JOIN tblbooks ON tblissuedbookdetails.BookId = tblbooks.id
                                                     WHERE users.user_id = '$uid'";
                                             $query = $conn->query($sql);

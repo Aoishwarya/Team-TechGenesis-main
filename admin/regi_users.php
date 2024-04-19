@@ -147,7 +147,7 @@ if (strlen($_SESSION['loggedin']) == 0) {
                                                         <?php } else { ?>
                                                             <a href="?id=<?php echo htmlentities($result['id']); ?>" onclick="return confirm('Are you sure you want to activate this student?');"><button class="btn btn-primary"> Active</button></a>
                                                         <?php } ?>
-                                                        <a href="user_history.php?stdid=<?php echo htmlentities($result['StudentId']); ?>"><button class="btn btn-success"> Details</button></a>
+                                                        <a href="user_history.php?uid=<?php echo htmlentities($result['user_id']); ?>"><button class="btn btn-success"> Details</button></a>
                                                     </td>
                                                 </tr>
                                             <?php $cnt++;
